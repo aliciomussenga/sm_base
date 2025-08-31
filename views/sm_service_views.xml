@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 1. Vistas de Lista de De Serviços -->
+    <!-- 1. Vistas de Lista De Serviços -->
     <record id="view_sm_service_list" model="ir.ui.view">
         <field name="name">sm.service.list</field>
         <field name="model">sm.service</field>

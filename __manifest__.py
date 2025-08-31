@@ -19,6 +19,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
     ],
     'data': [
         "views/sm_service_views.xml",
+        "views/sm_quotation_views.xml"
     ],
     'installable': True,
     'application': True,

@@ -4,7 +4,7 @@ from odoo import models, fields
 
 
 class SmServiceRequest(models.Model):
-    _name = 'sms.service.request'
+    _name = 'sm.service.request'
     _description = 'Solicitação de Serviço'
     _order = 'create_date desc'
 

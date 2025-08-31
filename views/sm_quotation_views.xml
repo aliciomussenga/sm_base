@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- 1. Vista de Lista de Orçamento -->
+    <record id="view_sm_quotation_list" model="ir.ui.view">
+        <field name="name">sm.quotation.list</field>
+        <field name="model">sm.quotation</field>
+        <field name="arch" type="xml">
+            <list string="Orçamento de Serviço">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_quotation"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="amount_total" sum="Total Geral"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'sent'"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'refused'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 2. Vistas de Formulário de Orçamento -->
+    <record id="view_sm_quotation_form" model="ir.ui.view">
+        <field name="name">sm.quotation.form</field>
+        <field name="model">sm.quotation</field>
+        <field name="arch" type="xml">
+            <form string="Orçamento de Serviço">
+                <!-- Cabeçalho com Statusbar -->
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved"/>
+                </header>
+
+                <sheet>
+                    <!-- Título em Destaque -->
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Número do Orçamento..."/>
+                        </h1>
+                    </div>
+
+                    <!-- Organização em Duas Colunas -->
+                    <group>
+                        <group string="Informação do Cliente">
+                            <field name="partner_id"/>
+                            <field name="request_id"/>
+                        </group>
+                        <group string="Detalhes da Proposta">
+                            <field name="date_quotation"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </group>
+                    </group>
+
+                    <!-- Abas com Tabela One2many Inline -->
+                    <notebook>
+                        <page string="Serviços Orçamentados">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="service_id"/>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal" readonly="1"/>
+                                </list>
+                            </field>
+
+                            <!-- Sumário Financeiro alinhado à direita -->
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 3. Ação de Janela para Orçamentos -->
+    <record id="action_sm_quotation" model="ir.actions.act_window">
+        <field name="name">Orçamentos de Serviços</field>
+        <field name="res_model">sm.quotation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- 4. Menu Item de Orçamentos -->
+    <menuitem id="menu_sm_quotation_action"
+              name="Orçamentos"
+              parent="menu_sm_root"
+              action="action_sm_quotation"
+              sequence="20"/>
+</odoo>

@@ -55,10 +55,10 @@ class SmQuotation(models.Model):
 
     tag_ids = fields.Many2many(
         comodel_name='sm.tag',
-        realtion='sm_quotation_tag_rel',
-        colum1 = 'quotation_id',
-        colum2 = 'tag_id',
-        string='Etiqueta'
+        relation='sm_quotation_tag_rel',
+        column1='quotation_id',
+        column2='tag_id',
+        string='Etiquetas'
     )
 
     amount_total = fields.Float(
