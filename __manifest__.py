@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Service Management - Base',
+    'version': '18.0.1.0.0',
+    'category': 'Services/Technical',
+    'summary': 'Módulo base para gestão de serviços e assistência técnica',
+    'description': """
+Service Management ERP - Core Module
+====================================
+Este módulo fornece a estrutura base para a gestão de serviços:
+- Configurações fundamentais
+- Extensão do cadastro de parceiros (Clientes/Técnicos)
+- Categorização inicial de serviços
+    """,
+    'author': 'Alício Mussenga',
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+    ],
+    'data': [
+        # Os ficheiros XML de vista e segurança entram aqui nas próximas aulas
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
