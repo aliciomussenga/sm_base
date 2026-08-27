@@ -1,5 +1,3 @@
-
-
 from odoo import models, fields
 
 class SmService(models.Model):
