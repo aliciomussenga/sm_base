@@ -19,6 +19,14 @@ class SmService(models.Model):
         help='Identificador único do serviço (ex: SERV-001)'
     )
 
+    category_id = fields.Many2one(
+        comodel_name='sm.service.category',
+        string='Categoria',
+        required=True,
+        ondelete='restrict',
+        help='Categoria de enquadramento deste serviço'
+    )
+
     active = fields.Boolean(
         string='Ativo',
         default=True,
