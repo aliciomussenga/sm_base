@@ -53,6 +53,14 @@ class SmQuotation(models.Model):
         string='Linhas do orçamento'
     )
 
+    tag_ids = fields.Many2many(
+        comodel_name='sm.tag',
+        realtion='sm_quotation_tag_rel',
+        colum1 = 'quotation_id',
+        colum2 = 'tag_id',
+        string='Etiqueta'
+    )
+
     amount_total = fields.Float(
         string='Valor Total (Kz)',
         default=0.0

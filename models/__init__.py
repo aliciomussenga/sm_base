@@ -5,3 +5,4 @@ from . import res_partner
 from . import sm_service_request
 from . import sm_quotation_line
 from . import sm_quotation
+from . import sm_tag
