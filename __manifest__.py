@@ -2,7 +2,7 @@
 {
     'name': 'Service Management - Base',
     'version': '18.0.1.0.0',
-    'category': 'Services/Technical',
+    'category': 'Técnico',
     'summary': 'Módulo base para gestão de serviços e assistência técnica',
     'description': """
 Service Management ERP - Core Module
