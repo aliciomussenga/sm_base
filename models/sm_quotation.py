@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, api
 
 class SmQuotation(models.Model):
     _name = 'sm.quotation'
@@ -63,5 +63,14 @@ class SmQuotation(models.Model):
 
     amount_total = fields.Float(
         string='Valor Total (Kz)',
-        default=0.0
+        default=0.0,
+        compute='_compute_amount_total',
+        store=True
     )
+
+    # Adicionar o metodo de cálculo do total:
+    @api.depends('line_ids.price_subtotal')
+    def _compute_amount_total(self):
+        for quotation in self:
+            # Utiliza a função sum() do Python navegando nas linhas do One2many
+            quotation.amount_total = sum(line.price_subtotal for line in quotation.line_ids)

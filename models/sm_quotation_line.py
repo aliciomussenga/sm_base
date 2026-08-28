@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, api
 
 class SmQuotationLine(models.Model):
     _name = 'sm.quotation.line'
@@ -38,8 +38,23 @@ class SmQuotationLine(models.Model):
         required=True,
         default=0.0
     )
-
+    # Campo Calculado
     price_subtotal = fields.Float(
         string='Subtotal (Kz)',
-        default=0.0
+        default=0.0,
+        compute='_compute_price_subtotal',
+        store=True
     )
+
+    #Cálculo do Subtotal
+    @api.depends('quantity', 'price_unit')
+    def _compute_price_subtotal(self):
+        for line in self:
+            line.price_subtotal = line.quantity * line.price_unit
+
+    # Reatividade ao selecionar o serviço
+    @api.onchange('service_id')
+    def _onchange_service_id(self):
+        if self.service_id:
+            self.name = self.service_id.name
+            self.price_unit = self.service_id.price
