@@ -18,7 +18,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         'base',
     ],
     'data': [
-        # Os ficheiros XML de vista e segurança entram aqui nas próximas aulas
+        "views/sm_service_views.xml",
     ],
     'installable': True,
     'application': True,
