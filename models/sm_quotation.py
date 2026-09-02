@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class SmQuotation(models.Model):
     _name = 'sm.quotation'
@@ -74,3 +75,30 @@ class SmQuotation(models.Model):
         for quotation in self:
             # Utiliza a função sum() do Python navegando nas linhas do One2many
             quotation.amount_total = sum(line.price_subtotal for line in quotation.line_ids)
+
+    # -------------------------------------------------------------------------
+    # MÉTODOS DE AÇÃO (TRANSIÇÃO DE ESTADOS)
+    # -------------------------------------------------------------------------
+
+    def action_send_quotation(self):
+        """Altera o estado para Enviado"""
+        for record in self:
+            if not record.line_ids:
+                raise UserError("Não é posssivel enviar um orçamento sem linhas de serviço!")
+            record.state = 'sent'
+
+    def action_approve(self):
+        """Aprovar o orçamento"""
+        for record in self:
+            record.state = 'approve'
+
+    def action_refuse(self):
+        """Recusa o orçamento"""
+        for record in self:
+            record.state = 'refused'
+
+
+    def action_draft(self):
+        """Restaurar o orçamento para o estado de Rascunho"""
+        for record in self:
+            record.state = 'draft'

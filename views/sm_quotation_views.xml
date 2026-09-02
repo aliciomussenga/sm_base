@@ -56,6 +56,28 @@
             <form string="Orçamento de Serviço">
                 <!-- Cabeçalho com Statusbar -->
                 <header>
+                    <button name="action_send_quotation"
+                            string="Enviar por Email"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_approve"
+                            string="Aprovar"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ('draft', 'sent')"/>
+
+                    <button name="action_refuse"
+                            string="Recusar"
+                            type="object"
+                            invisible="state not in ('draft', 'sent')"/>
+
+                    <button name="action_draft"
+                            string="Restaurar p/ Rascunho"
+                            type="object"
+                            invisible="state not in ('refused', 'approve')"/>
+
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved"/>
                 </header>
 
