@@ -18,6 +18,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         'base',
     ],
     'data': [
+        "data/sm_quotation_sequence.xml",
         "views/sm_service_views.xml",
         "views/sm_quotation_views.xml"
     ],

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 class SmQuotation(models.Model):
@@ -12,7 +12,7 @@ class SmQuotation(models.Model):
         required=True,
         copy=False,
         readonly=True,
-        default='Novo'
+        default=lambda self: _('Novo')
     )
 
     partner_id = fields.Many2one(
@@ -75,6 +75,18 @@ class SmQuotation(models.Model):
         for quotation in self:
             # Utiliza a função sum() do Python navegando nas linhas do One2many
             quotation.amount_total = sum(line.price_subtotal for line in quotation.line_ids)
+
+    # -------------------------------------------------------------------------
+    # SOBREPOSIÇÃO DO MÉTODO CREATE
+    # -------------------------------------------------------------------------
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # Se o nome for 'Novo' ou estiver vazio, consome a sequência do sistema
+            if vals.get('name', _('Novo')) == _('Novo'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('sm.quotation') or _('Novo')
+        return super(SmQuotation, self).create(vals_list)
+
 
     # -------------------------------------------------------------------------
     # MÉTODOS DE AÇÃO (TRANSIÇÃO DE ESTADOS)
