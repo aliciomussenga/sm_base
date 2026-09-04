@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sm_service_category_user,sm.service.category.user,model_sm_service_category,sm_base.group_sm_user,1,0,0,0
+access_sm_service_category_manager,sm.service.category.manager,model_sm_service_category,sm_base.group_sm_manager,1,1,1,1
+access_sm_service_user,sm.service.user,model_sm_service,sm_base.group_sm_user,1,0,0,0
+access_sm_service_manager,sm.service.manager,model_sm_service,sm_base.group_sm_manager,1,1,1,1
+access_sm_service_request_user,sm.service.request.user,model_sm_service_request,sm_base.group_sm_user,1,1,1,0
+access_sm_service_request_manager,sm.service.request.manager,model_sm_service_request,sm_base.group_sm_manager,1,1,1,1
+access_sm_quotation_user,sm.quotation.user,model_sm_quotation,sm_base.group_sm_user,1,1,1,0
+access_sm_quotation_manager,sm.quotation.manager,model_sm_quotation,sm_base.group_sm_manager,1,1,1,1
+access_sm_quotation_line_user,sm.quotation.line.user,model_sm_quotation_line,sm_base.group_sm_user,1,1,1,0
+access_sm_quotation_line_manager,sm.quotation.line.manager,model_sm_quotation_line,sm_base.group_sm_manager,1,1,1,1

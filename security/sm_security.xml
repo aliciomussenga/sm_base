@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- 1. Categoria do Aplicativo na janela de Utilizadores -->
+        <record id="module_category_sm_service" model="ir.module.category">
+            <field name="name">Gestão de Serviço</field>
+            <field name="description">Controlo de acesso e permissões para o módulo de Serviço e Orçamento</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- 2. Grupo: Utilizador / Técnico (Acesso Operacional Básico) -->
+        <record id="group_sm_user" model="res.groups">
+            <field name="name">Utilizador</field>
+            <field name="category_id" ref="module_category_sm_service"/>
+            <field name="comment">O utilizador pode vizualizar e criar solicitações de serviço e orçamento</field>
+        </record>
+
+        <!-- 3. Grupo: Gestor (Acesso Total + permissões de Administração) -->
+        <record id="group_sm_manager" model="res.groups">
+            <field name="name">Gestor</field>
+            <field name="category_id" ref="module_category_sm_service"/>
+            <field name="comment">O gestor possui acesso total para aprovar, recusar e gerir definições</field>
+            <!-- Herança: O Gestor tem tudo o que o utilizador tem mais permissões adicionais -->
+            <field name="implied_ids" eval="[(4, ref('group_sm_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>
