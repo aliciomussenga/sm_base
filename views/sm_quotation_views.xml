@@ -148,7 +148,7 @@
                                 </div>
                                 <div class="text_muted">
                                     <span>Total: </span>
-                                    <strong><field name="amount_total"/></strong>
+                                    <strong><field name="amount_total" sum="Total Geral"/></strong>
                                 </div>
                             </div>
                         </div>

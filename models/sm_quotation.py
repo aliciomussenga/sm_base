@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 class SmQuotation(models.Model):
     _name = 'sm.quotation'
@@ -69,6 +69,11 @@ class SmQuotation(models.Model):
         store=True
     )
 
+    refuse_reasen = fields.Text(
+        string='Motivo da Recusa',
+        readonly=True
+    )
+
     # Adicionar o metodo de cálculo do total:
     @api.depends('line_ids.price_subtotal')
     def _compute_amount_total(self):
@@ -87,6 +92,16 @@ class SmQuotation(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sm.quotation') or _('Novo')
         return super(SmQuotation, self).create(vals_list)
 
+    # -------------------------------------------------------------------------
+    # VALIDAÇÕES TÉCNICAS (CONSTRAINTS)
+    # -------------------------------------------------------------------------
+
+    @api.constrains('date_quotation')
+    def _check_date_quotation(self):
+        """Impede a criação de orçamentos com dats passadas"""
+        for record in self:
+            if record.date_quotation and record.date_quotation < fields.Date.today():
+                raise ValidationError(_("A data so prçamento não pode ser anterior à data de hoje (%s)!") % fields.Date.today())
 
     # -------------------------------------------------------------------------
     # MÉTODOS DE AÇÃO (TRANSIÇÃO DE ESTADOS)
@@ -102,12 +117,22 @@ class SmQuotation(models.Model):
     def action_approve(self):
         """Aprovar o orçamento"""
         for record in self:
-            record.state = 'approve'
+            record.state = 'approved'
 
+    # Atualizar o método action_refuse para abrir o Wizard em pop-up:
     def action_refuse(self):
-        """Recusa o orçamento"""
-        for record in self:
-            record.state = 'refused'
+        """Abre a caixa de diálogo (Wizard) para solicitar o motivo da recusa"""
+        self.ensure_one()
+        return {
+            'name': _('Recusar Orçamento'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'sm.quotation.refuse.wizard',
+            'view_mode': 'form',
+            'target': 'new',  # 'new' faz abrir como janela pop-up (Modal)
+            'context': {
+                'default_quotation_id': self.id,
+            }
+        }
 
 
     def action_draft(self):
