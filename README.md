@@ -34,11 +34,11 @@ Nesta primeira etapa, o módulo fornece a estrutura inicial sobre a qual serão 
 * [x] Estrutura inicial do módulo
 * [x] Manifesto do módulo
 * [x] Configuração das dependências
-* [ ] Modelos de negócio
-* [ ] Dados iniciais
-* [ ] Regras de segurança
-* [ ] Views
-* [ ] Menus e ações
+* [x] Modelos de negócio
+* [x] Dados iniciais
+* [x] Regras de segurança
+* [x] Views
+* [x] Menus e ações
 
 ### Gestão de serviços
 
