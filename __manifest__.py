@@ -20,6 +20,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
     'data': [
         "security/sm_security.xml",
         "security/ir.model.access.csv",
+        "security/sm_record_rules.xml",
         "data/sm_quotation_sequence.xml",
         "wizards/sm_quotation_refuse_wizard_views.xml",
         "views/sm_service_views.xml",
