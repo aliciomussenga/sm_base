@@ -1,31 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Template Principal do Relatório -->
+    <!-- Template do Relatório do Orçamento de Serviço -->
     <template id="report_quotation_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <h2>
-                            <span>Orçamento N.º </span>
-                            <span t-field="doc.name"/>
-                        </h2>
 
-                        <div class="row mt-4 mb-4">
+                        <!-- 1. Cabeçalho e Título do Documento -->
+                        <div class="row mb-4">
                             <div class="col-6">
-                                <strong>Cliente:</strong>
-                                <!-- CORREÇÃO: Removido o </p> extra -->
-                                <p t-field="doc.partner_id.name"/>
+                                <h2 class="font-weight-bold">
+                                    <span>Orçamento N.º </span>
+                                    <span t-field="doc.name"/>
+                                </h2>
+                                <div><strong>Data de Emissão:</strong> <span t-field="doc.date_quotation"/></div>
+                                <div><strong>Estado:</strong> <span t-field="doc.state"/></div>
                             </div>
-                            <div class="col-6">
-                                <strong>Data:</strong>
-                                <!-- CORREÇÃO: Removido o </p> extra -->
-                                <p t-field="doc.date_quotation"/>
+                            <div class="col-6 text-end">
+                                <h5><strong>Dados do Cliente</strong></h5>
+                                <div t-field="doc.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["name", "address", "phone", "email"], "no_marker": True}'/>
                             </div>
                         </div>
 
-                        <p>Documento de teste gerado com sucesso!</p>
+                        <!-- 2. Descrição da Solicitação de Origem -->
+                        <div class="card mb-4" t-if="doc.request_id">
+                            <div class="card-body bg-light">
+                                <strong>Solicitação de Serviço de Origem:</strong>
+                                <span t-field="doc.request_id.name"/> — <span t-field="doc.request_id.description"/>
+                            </div>
+                        </div>
+
+                        <!-- 3. Tabela Principal de Itens/Serviços -->
+                        <table class="table table-sm table-striped mt-4">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Serviço / Descrição</th>
+                                    <th class="text-end">Qtd</th>
+                                    <th class="text-end">Preço Unit.</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <span t-field="line.service_id.name"/><br/>
+                                            <small class="text-muted" t-field="line.name"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- 4. Quadro de Totais e Resumo Financeiro -->
+                        <div class="row justify-content-end mt-4">
+                            <div class="col-5">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td><strong>Subtotal:</strong></td>
+                                        <td class="text-end">
+                                            <span t-field="doc.amount_total"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Imposto / IVA:</strong></td>
+                                        <td class="text-end">
+                                            <span t-field="doc.amount_total"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top border-dark">
+                                        <td><h4><strong>Total Geral:</strong></h4></td>
+                                        <td class="text-end">
+                                            <h4><strong t-field="doc.amount_total"/></h4>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 5. Rodapé Interno com Motivo de Recusa (se aplicável) -->
+                        <div t-if="doc.state == 'refused'" class="alert alert-danger mt-4">
+                            <strong>Motivo da Recusa:</strong>
+                            <p t-field="doc.refuse_reason"/>
+                        </div>
+
                     </div>
                 </t>
             </t>

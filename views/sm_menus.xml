@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 4. Estrutura de Menus -->
+    <menuitem id="menu_sm_root"
+              name="Gestão de Serviços"
+              web_icon="sm_base,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_sm_catalog_category"
+              name="Catálogo"
+              parent="menu_sm_root"
+              sequence="10"/>
+
+    <menuitem id="menu_sm_service_action"
+              name="Serviços"
+              parent="menu_sm_catalog_category"
+              action="action_sm_service"
+              sequence="10"/>
+
+    <menuitem id="menu_sm_service_category_action"
+              name="Categorias"
+              parent="menu_sm_catalog_category"
+              action="action_sm_service_category"
+              sequence="20"/>
+
+       <!-- 6. Menu Item de Orçamentos -->
+    <menuitem id="menu_sm_quotation_action"
+              name="Orçamentos"
+              parent="menu_sm_root"
+              action="action_sm_quotation"
+              sequence="20"/>
+</odoo>

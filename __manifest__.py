@@ -26,8 +26,11 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         "views/sm_service_views.xml",
         "views/sm_quotation_views.xml",
 
+        # 4. Relatórios QWeb
         "report/sm_quotation_reports.xml",
         "report/sm_quotation_templates.xml",
+
+        "views/sm_menus.xml",
     ],
     'installable': True,
     'application': True,

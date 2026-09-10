@@ -165,11 +165,4 @@
         <field name="view_mode">list,kanban,form</field>
     </record>
 
-    <!-- 6. Menu Item de Orçamentos -->
-    <menuitem id="menu_sm_quotation_action"
-              name="Orçamentos"
-              parent="menu_sm_root"
-              action="action_sm_quotation"
-              sequence="20"/>
-
 </odoo>
