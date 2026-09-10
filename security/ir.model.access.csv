@@ -9,3 +9,5 @@ access_sm_quotation_user,sm.quotation.user,model_sm_quotation,sm_base.group_sm_u
 access_sm_quotation_manager,sm.quotation.manager,model_sm_quotation,sm_base.group_sm_manager,1,1,1,1
 access_sm_quotation_line_user,sm.quotation.line.user,model_sm_quotation_line,sm_base.group_sm_user,1,1,1,0
 access_sm_quotation_line_manager,sm.quotation.line.manager,model_sm_quotation_line,sm_base.group_sm_manager,1,1,1,1
+access_sm_work_order_user,sm.work.order.user,model_sm_work_order,sm_base.group_sm_user,1,1,1,0
+access_sm_work_order_manager,sm.work.order.manager,model_sm_work_order,sm_base.group_sm_manager,1,1,1,1

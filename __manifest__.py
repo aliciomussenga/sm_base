@@ -22,16 +22,19 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         "security/ir.model.access.csv",
         "security/sm_record_rules.xml",
         "data/sm_quotation_sequence.xml",
-        "wizards/sm_quotation_refuse_wizard_views.xml",
+        "data/sm_work_order_sequence.xml",
         "views/sm_service_views.xml",
         "views/sm_quotation_views.xml",
+        "views/sm_work_order_views.xml",
+        "wizards/sm_quotation_refuse_wizard_views.xml",
 
         # 4. Relatórios QWeb
         "report/sm_quotation_reports.xml",
         "report/sm_quotation_templates.xml",
 
         "views/sm_menus.xml",
-    ],
+		'views/sm_work_order_views.xml',
+],
     'installable': True,
     'application': True,
     'auto_install': False,

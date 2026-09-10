@@ -115,9 +115,14 @@ class SmQuotation(models.Model):
             record.state = 'sent'
 
     def action_approve(self):
-        """Aprovar o orçamento"""
-        for record in self:
-            record.state = 'approved'
+        for rec in self:
+            rec.state = 'approved'
+            # Criar a Ordem de Serviço correspondente de forma automática
+            self.env['sm.work.order'].create({
+                'quotation_id': rec.id,
+                'partner_id': rec.partner_id.id,
+                'description': f"Trabalho referente ao Orçamento {rec.name}",
+            })
 
     # Atualizar o método action_refuse para abrir o Wizard em pop-up:
     def action_refuse(self):

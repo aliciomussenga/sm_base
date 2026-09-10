@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. Form View -->
+    <record id="view_sm_work_order_form" model="ir.ui.view">
+        <field name="name">sm.work.order.form</field>
+        <field name="model">sm.work.order</field>
+        <field name="arch" type="xml">
+            <form string="Ordem de Serviço">
+                <header>
+                    <button name="action_start" string="Iniciar Execução" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_complete" string="Concluir OS" type="object" class="oe_highlight" invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" string="Cancelar" type="object" invisible="state in ('done', 'cancel')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Informações Gerais">
+                            <field name="partner_id"/>
+                            <field name="user_id"/>
+                            <field name="quotation_id"/>
+                            <field name="request_id"/>
+                        </group>
+                        <group string="Datas e Prazos">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descrição do Trabalho" name="description">
+                            <field name="description" placeholder="Descreva os serviços que o técnico deverá realizar..."/>
+                        </page>
+                        <page string="Notas Técnicas" name="technical_notes">
+                            <field name="technical_notes" placeholder="Relatório pós-atendimento, peças utilizadas ou observações do técnico..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 2. List View -->
+    <record id="view_sm_work_order_list" model="ir.ui.view">
+        <field name="name">sm.work.order.list</field>
+        <field name="model">sm.work.order</field>
+        <field name="arch" type="xml">
+            <list string="Ordens de Serviço">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'in_progress'"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'cancel'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 3. Window Action -->
+    <record id="action_sm_work_order" model="ir.actions.act_window">
+        <field name="name">Ordens de Serviço</field>
+        <field name="res_model">sm.work.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

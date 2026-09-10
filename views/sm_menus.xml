@@ -29,4 +29,11 @@
               parent="menu_sm_root"
               action="action_sm_quotation"
               sequence="20"/>
+
+    <menuitem id="menu_sm_work_order"
+              name="Ordens de Serviço"
+              parent="menu_sm_root"
+              action="action_sm_work_order"
+              sequence="30"/>
+
 </odoo>
