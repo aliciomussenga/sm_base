@@ -24,7 +24,10 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         "data/sm_quotation_sequence.xml",
         "wizards/sm_quotation_refuse_wizard_views.xml",
         "views/sm_service_views.xml",
-        "views/sm_quotation_views.xml"
+        "views/sm_quotation_views.xml",
+
+        "report/sm_quotation_reports.xml",
+        "report/sm_quotation_templates.xml",
     ],
     'installable': True,
     'application': True,

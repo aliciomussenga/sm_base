@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Ação para registrar o relatório no menu Imprimir do modelo sm.quotatio -->
+    <record id="action_report_sm_quotation" model="ir.actions.report">
+        <field name="name">Orçamento de Serviço</field>
+        <field name="model">sm.quotation</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">sm_base.report_quotation_document</field>
+        <field name="report_file">sm_base.report_quotation_document</field>
+        <field name="binding_model_id" ref="model_sm_quotation"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
