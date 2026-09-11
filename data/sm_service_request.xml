@@ -2,10 +2,10 @@
 <odoo>
     <data noupdate="1">
         <!-- Sequence -->
-        <record id="seq_sm_work_order" model="ir.sequence">
-            <field name="name">Sequência da Ordem de Serviço</field>
-            <field name="code">sm.work.order</field>
-            <field name="prefix">OS/%(year)s/</field>
+        <record id="seq_sm_service_request" model="ir.sequence">
+            <field name="name">Sequência da Ordem Serviço</field>
+            <field name="code">sm.service.request</field>
+            <field name="prefix">SM/%(year)s/</field>
             <field name="padding">4</field>
             <field name="number_increment">1</field>
             <field name="number_next">1</field>

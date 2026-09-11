@@ -23,6 +23,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         "security/sm_record_rules.xml",
         "data/sm_quotation_sequence.xml",
         "data/sm_work_order_sequence.xml",
+        "data/sm_service_request.xml",
         "views/sm_service_views.xml",
         "views/sm_quotation_views.xml",
         "views/sm_work_order_views.xml",

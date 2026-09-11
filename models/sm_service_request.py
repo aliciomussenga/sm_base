@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields
+from odoo import models, fields, api, _
 
 
 class SmServiceRequest(models.Model):
@@ -13,7 +13,7 @@ class SmServiceRequest(models.Model):
         required=True,
         copy=True,
         readonly=True,
-        default='Novo'
+        default=lambda self: _('Novo'),
     )
 
     partner_id = fields.Many2one(
@@ -50,6 +50,14 @@ class SmServiceRequest(models.Model):
     description = fields.Text(
         string='Descrição Detalhada da Necessidade'
     )
+
+    # --- Sequência Automática no Create ---
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Novo') == 'Novo':
+                vals['name'] = self.env['ir.sequence'].next_by_code('sm.service.request') or 'Novo'
+        return super().create(vals_list)
 
 # --- Métodos de Alteração de Estado ---
     def action_in_analysis(self):
