@@ -22,7 +22,7 @@
                     <group>
                         <group string="Informações Gerais">
                             <field name="partner_id" readonly="state != 'draft'"/>
-                            <field name="user_id" readonly="state not in ('draft', 'in_progress')"/>
+                            <field name="technician_id" readonly="state not in ('draft', 'in_progress')"/>
                             <field name="quotation_id" readonly="state != 'draft'"/>
                             <field name="request_id"/>
                         </group>
@@ -56,7 +56,7 @@
                   decoration-danger="state == 'cancel'">
                 <field name="name"/>
                 <field name="partner_id"/>
-                <field name="user_id"/>
+                <field name="technician_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="state" widget="badge"/>

@@ -5,19 +5,22 @@ class ResPartner(models.Model):
     # Indica que estamos a alterar/estender o modelo nativo res.partner
     _inherit = 'res.partner'
 
-    customer_code = fields.Char(
-        string='Código de Cliente',
-        copy=False,
-        index=True,
-        help='Código interno identificador do cliente para assistência técnica'
+    is_technician = fields.Boolean(
+        string='É Técnico?',
+        default=False,
+        help='Indica se este parceiro/contacto é um técnico prestador de serviços.',
     )
-    customer_type = fields.Selection(
-        selection=[
-            ('individual', 'Particular / Individual'),
-            ('company', 'Empresarial / PME'),
-            ('government', 'Instituição Pública / Governo')
+    technical_specialty = fields.Selection(
+        [
+            ('hardware', 'Hardware e Servidores'),
+            ('network', 'Redes e Cablagem'),
+            ('software', 'Sistemas e Software'),
+            ('general', 'Técnico Generalista'),
         ],
-        string='Tipo de Cliente',
-        default='individual',
-        help='Classificação do cliente para fins de atendimento'
+        string='Especialidade Técnica',
+        default='general',
+    )
+    certification_info = fields.Text(
+        string='Certificações e Habilitações',
+        help='Registo de qualificações e certificações do técnico.',
     )

@@ -35,10 +35,12 @@ class SmWorkOrder(models.Model):
         related='quotation_id.request_id',  # ← Corrigido
         store=True,  # ← Corrigido
     )
-    user_id = fields.Many2one(
-        'res.users',
-        string='Técnico Responsável',
+    technician_id = fields.Many2one(
+        'res.partner',
+        string='Técnico Atribuído',
+        domain="[('is_technician', '=', True)]",
         tracking=True,
+        help='Apenas contactos marcados como técnicos podem ser selecionados.',
     )
     date_start = fields.Datetime(
         string='Data de Início Prevista',
@@ -81,7 +83,7 @@ class SmWorkOrder(models.Model):
     def action_start(self):
         """Inicia a execução da Ordem de Serviço."""
         for rec in self:
-            if not rec.user_id:
+            if not rec.technician_id:
                 raise ValidationError("É necessário atribuir um Técnico Responsável antes de iniciar a OS!")
             rec.state = 'in_progress'
 
