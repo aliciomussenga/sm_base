@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
-from odoo.exceptions import ValidationError  # ← Adicionado
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError # ← Adicionado
 
 
 class SmWorkOrder(models.Model):
@@ -13,7 +13,7 @@ class SmWorkOrder(models.Model):
         string='Número da OS',  # ← Corrigido
         required=True,
         readonly=True,
-        default='Novo',
+        default=lambda self: _('Novo'),
         copy=False,
     )
     partner_id = fields.Many2one(
