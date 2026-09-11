@@ -13,7 +13,7 @@ class SmServiceRequest(models.Model):
         required=True,
         copy=True,
         readonly=True,
-        defaut='Novo'
+        default='Novo'
     )
 
     partner_id = fields.Many2one(
@@ -50,3 +50,14 @@ class SmServiceRequest(models.Model):
     description = fields.Text(
         string='Descrição Detalhada da Necessidade'
     )
+
+# --- Métodos de Alteração de Estado ---
+    def action_in_analysis(self):
+        """Muda o estado para Em Análise."""
+        for rec in self:
+            rec.state = 'in_analysis'
+
+    def action_cancel(self):
+        """Cancela a solicitação de serviço."""
+        for rec in self:
+            rec.state = 'cancel'

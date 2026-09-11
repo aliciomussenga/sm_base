@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-import string
-
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError  # ← Adicionado
 
 
 class SmWorkOrder(models.Model):
@@ -11,7 +10,7 @@ class SmWorkOrder(models.Model):
     _order = 'date_start desc, id desc'
 
     name = fields.Char(
-        string='Número ds OS',
+        string='Número da OS',  # ← Corrigido
         required=True,
         readonly=True,
         default='Novo',
@@ -21,8 +20,7 @@ class SmWorkOrder(models.Model):
         'res.partner',
         string='Cliente',
         required=True,
-        readonly=True,
-        states={'draft': [('readonly', True)]},
+        # ← Removido 'readonly' e 'states' (controlar na view XML)
     )
     quotation_id = fields.Many2one(
         'sm.quotation',
@@ -34,10 +32,10 @@ class SmWorkOrder(models.Model):
         'sm.service.request',
         string='Solicitação de Origem',
         readonly=True,
-        related='quotation_id.resquest_id',
-        stored=True,
+        related='quotation_id.request_id',  # ← Corrigido
+        store=True,  # ← Corrigido
     )
-    user_is = fields.Many2one(
+    user_id = fields.Many2one(
         'res.users',
         string='Técnico Responsável',
         tracking=True,
