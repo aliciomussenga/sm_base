@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 4. Estrutura de Menus -->
+
+    <!-- 1. Menu Raiz do Módulo (App Bar / Barra de Aplicações) -->
     <menuitem id="menu_sm_root"
               name="Gestão de Serviços"
               web_icon="sm_base,static/description/icon.png"
               sequence="10"/>
 
-    <menuitem id="menu_sm_catalog_category"
-              name="Catálogo"
+    <!-- ======================================================= -->
+    <!-- 2. CATEGORIA: OPERAÇÕES (Fluxo do Dia a Dia)           -->
+    <!-- ======================================================= -->
+    <menuitem id="menu_sm_operations"
+              name="Operações"
               parent="menu_sm_root"
               sequence="10"/>
 
-    <menuitem id="menu_sm_service_action"
-              name="Serviços"
-              parent="menu_sm_catalog_category"
-              action="action_sm_service"
+    <menuitem id="menu_sm_service_request"
+              name="Solicitações de Serviço"
+              parent="menu_sm_operations"
+              action="action_sm_service_request"
               sequence="10"/>
 
-    <menuitem id="menu_sm_service_category_action"
-              name="Categorias"
-              parent="menu_sm_catalog_category"
-              action="action_sm_service_category"
-              sequence="20"/>
-
-       <!-- 6. Menu Item de Orçamentos -->
-    <menuitem id="menu_sm_quotation_action"
+    <menuitem id="menu_sm_quotation"
               name="Orçamentos"
-              parent="menu_sm_root"
+              parent="menu_sm_operations"
               action="action_sm_quotation"
               sequence="20"/>
 
     <menuitem id="menu_sm_work_order"
               name="Ordens de Serviço"
-              parent="menu_sm_root"
+              parent="menu_sm_operations"
               action="action_sm_work_order"
               sequence="30"/>
+
+    <!-- ======================================================= -->
+    <!-- 3. CATEGORIA: CATÁLOGO (Dados de Suporte)              -->
+    <!-- ======================================================= -->
+    <menuitem id="menu_sm_catalog"
+              name="Catálogo"
+              parent="menu_sm_root"
+              sequence="20"/>
+
+    <menuitem id="menu_sm_service"
+              name="Serviços"
+              parent="menu_sm_catalog"
+              action="action_sm_service"
+              sequence="10"/>
+
+    <menuitem id="menu_sm_service_category"
+              name="Categorias de Serviço"
+              parent="menu_sm_catalog"
+              action="action_sm_service_category"
+              sequence="20"/>
 
 </odoo>
