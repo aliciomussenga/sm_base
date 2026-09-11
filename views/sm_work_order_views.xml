@@ -21,22 +21,22 @@
                     </div>
                     <group>
                         <group string="Informações Gerais">
-                            <field name="partner_id"/>
-                            <field name="user_id"/>
-                            <field name="quotation_id"/>
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="user_id" readonly="state not in ('draft', 'in_progress')"/>
+                            <field name="quotation_id" readonly="state != 'draft'"/>
                             <field name="request_id"/>
                         </group>
                         <group string="Datas e Prazos">
-                            <field name="date_start"/>
+                            <field name="date_start" readonly="state != 'draft'"/>
                             <field name="date_end"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Descrição do Trabalho" name="description">
-                            <field name="description" placeholder="Descreva os serviços que o técnico deverá realizar..."/>
+                            <field name="description" placeholder="Descreva os serviços que o técnico deverá realizar..." readonly="state != 'draft'"/>
                         </page>
                         <page string="Notas Técnicas" name="technical_notes">
-                            <field name="technical_notes" placeholder="Relatório pós-atendimento, peças utilizadas ou observações do técnico..."/>
+                            <field name="technical_notes" placeholder="Relatório pós-atendimento, peças utilizadas ou observações do técnico..." readonly="state == 'done'"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -49,17 +49,17 @@
         <field name="name">sm.work.order.list</field>
         <field name="model">sm.work.order</field>
         <field name="arch" type="xml">
-            <list string="Ordens de Serviço">
+            <list string="Ordens de Serviço"
+                  decoration-info="state == 'draft'"
+                  decoration-warning="state == 'in_progress'"
+                  decoration-success="state == 'done'"
+                  decoration-danger="state == 'cancel'">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="user_id"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
-                <field name="state" widget="badge"
-                       decoration-info="state == 'draft'"
-                       decoration-warning="state == 'in_progress'"
-                       decoration-success="state == 'done'"
-                       decoration-danger="state == 'cancel'"/>
+                <field name="state" widget="badge"/>
             </list>
         </field>
     </record>
