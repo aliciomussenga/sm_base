@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Herança da Vista de Formulário do res.partner -->
+    <record id="view_partner_form_inherit_sm_base" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.sm.base</field>
+        <field name="model">res.partner</field>
+        <!-- Aponta para a vista nativa do Odoo -->
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!-- 1. Adicionar o campo 'is_technician' junto aos tipos de parceiro -->
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_technician"/>
+            </xpath>
+
+            <!-- 2. Adicionar uma nova Aba 'Informações Técnicas' no Notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Informações Técnicas" name="technical_info" invisible="not is_technician">
+                    <group>
+                        <group string="Especialização">
+                            <field name="technical_specialty" widget="radio"/>
+                        </group>
+                        <group string="Qualificações">
+                            <field name="certification_info" placeholder="Ex: Certificação Cisco CCNA, Redes Industriais..."/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
