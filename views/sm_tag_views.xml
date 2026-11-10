@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <!-- Form View -->
     <record id="sm_tag_view_form" model="ir.ui.view">
         <field name="name">sm.tag.view.form</field>
         <field name="model">sm.tag</field>
         <field name="arch" type="xml">
-            <form string="Sm_tag">
+            <form string="Etiqueta">
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="active" widget="boolean_toggle_confirm"/>
+                        <field name="active" widget="boolean_toggle"/>
                         <field name="color" widget="color_picker"/>
                     </group>
                 </sheet>
@@ -24,7 +25,7 @@
         <field name="arch" type="xml">
             <list string="Etiquetas">
                 <field name="name"/>
-                <field name="active" widget="boolean_toggle_confirm"/>
+                <field name="active" widget="boolean_toggle"/>
                 <field name="color"/>
             </list>
         </field>
@@ -40,7 +41,7 @@
                 Nenhuma Etiqueta criada ainda!
             </p>
             <p>
-                Crie a tua primeira Etiqueta!
+                Crie a sua primeira Etiqueta!
             </p>
         </field>
     </record>

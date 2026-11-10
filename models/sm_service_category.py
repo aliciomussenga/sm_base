@@ -17,9 +17,10 @@ class SmServiceCategory(models.Model):
         for rec in self:
             rec.service_count = len(rec.service_ids)
 
-    def open_service_ids (self):
+    def open_service_ids(self):
+        self.ensure_one()
         return {
-            'name': _("Related Service"),
+            'name': _("Serviços da Categoria"),
             'type': 'ir.actions.act_window',
             'res_model': 'sm.service',
             'view_mode': 'list,form',

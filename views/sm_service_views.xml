@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 1. Vistas de Lista De Serviços -->
+
+    <!-- 1. Vista de Pesquisa (Search View) -->
+    <record id="view_sm_service_search" model="ir.ui.view">
+        <field name="name">sm.service.search</field>
+        <field name="model">sm.service</field>
+        <field name="arch" type="xml">
+            <search string="Pesquisar Serviços">
+                <field name="name" string="Serviço ou Código"
+                       filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="service_type"/>
+                <separator/>
+                <filter string="Manutenção de Hardware" name="type_hardware" domain="[('service_type', '=', 'hardware')]"/>
+                <filter string="Instalação de Software" name="type_software" domain="[('service_type', '=', 'software')]"/>
+                <filter string="Redes e Infraestrutura" name="type_network" domain="[('service_type', '=', 'network')]"/>
+                <filter string="Consultoria Técnica" name="type_consulting" domain="[('service_type', '=', 'consulting')]"/>
+                <separator/>
+                <filter string="Arquivados" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Categoria" name="group_by_category" context="{'group_by': 'category_id'}"/>
+                    <filter string="Tipo de Serviço" name="group_by_type" context="{'group_by': 'service_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- 2. Vista de Lista (List View) -->
     <record id="view_sm_service_list" model="ir.ui.view">
         <field name="name">sm.service.list</field>
         <field name="model">sm.service</field>
@@ -17,17 +44,54 @@
         </field>
     </record>
 
-    <!-- 2. Ação de janela para Serviço -->
+    <!-- 3. Vista de Formulário (Form View) -->
+    <record id="view_sm_service_form" model="ir.ui.view">
+        <field name="name">sm.service.form</field>
+        <field name="model">sm.service</field>
+        <field name="arch" type="xml">
+            <form string="Serviço do Catálogo">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Ex: Manutenção Preventiva..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Identificação e Classificação">
+                            <field name="code" readonly="1"/>
+                            <field name="category_id"/>
+                            <field name="service_type"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Valores e Execução">
+                            <field name="price"/>
+                            <field name="execution_time"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descrição Detalhada" name="description">
+                            <field name="description" placeholder="Descreva os detalhes e procedimentos padrão deste serviço..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 4. Ação de Janela para Serviço -->
     <record id="action_sm_service" model="ir.actions.act_window">
-        <field name="name">Catálogo de Serviço</field>
+        <field name="name">Catálogo de Serviços</field>
         <field name="res_model">sm.service</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_sm_service_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Nenhum serviço cadastrado ainda
             </p>
             <p>
-                Clique ainda no botão Novo para cadrastrar o primeiro serviço no catálogo!
+                Clique no botão Novo para cadastrar o primeiro serviço no catálogo!
             </p>
         </field>
     </record>

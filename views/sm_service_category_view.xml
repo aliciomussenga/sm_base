@@ -33,14 +33,13 @@
         <field name="model">sm.service.category</field>
         <field name="arch" type="xml">
             <form string="Categoria de Serviço">
-                <header>
-                    <button name="open_service_ids" type="object"
-                        class="oe_stat_button" icon="fa-cogs">
-                        <field name="service_count" widget="statinfo" />
-                    </button>
-
-                </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_service_ids" type="object"
+                                class="oe_stat_button" icon="fa-cogs">
+                            <field name="service_count" widget="statinfo" string="Serviços"/>
+                        </button>
+                    </div>
                     <group>
                         <field name="name" placeholder="Ex: Manutenção, Limpeza..." />
                     </group>
