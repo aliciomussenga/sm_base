@@ -101,6 +101,7 @@
                         <group string="Detalhes da Proposta">
                             <field name="date_quotation"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="refuse_reason" invisible="state != 'refused'"/>
                         </group>
                     </group>
 

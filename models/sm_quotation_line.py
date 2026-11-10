@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
 
@@ -67,9 +67,10 @@ class SmQuotationLine(models.Model):
 
     @api.constrains('quantity', 'price_unit')
     def _check_quantities_and_prices(self):
-        """Valida se a quantidades e o preço unitário são estritamente positivos"""
+        """Valida se a quantidade e o preço unitário são válidos"""
         for line in self:
+            service_name = line.service_id.name or line.name or _('Serviço')
             if line.quantity <= 0:
-                raise ValidationError(_("A quantidade do serviço '%s' deve ser maior zero!") % line.service_id.name)
+                raise ValidationError(_("A quantidade do serviço '%s' deve ser maior que zero!") % service_name)
             if line.price_unit < 0:
-                raise ValidationError(_("O preço unitário do serviço '%s' não pode ser negativo!") % line.service_id.name)
+                raise ValidationError(_("O preço unitário do serviço '%s' não pode ser negativo!") % service_name)

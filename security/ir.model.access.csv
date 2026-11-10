@@ -13,3 +13,4 @@ access_sm_work_order_user,sm.work.order.user,model_sm_work_order,sm_base.group_s
 access_sm_work_order_manager,sm.work.order.manager,model_sm_work_order,sm_base.group_sm_manager,1,1,1,1
 access_sm_tag_user,sm.tag.user,model_sm_tag,sm_base.group_sm_user,1,1,1,0
 access_sm_tag_manager,sm.tag.manager,model_sm_tag,sm_base.group_sm_manager,1,1,1,1
+access_sm_quotation_refuse_wizard_user,sm.quotation.refuse.wizard.user,model_sm_quotation_refuse_wizard,sm_base.group_sm_user,1,1,1,0

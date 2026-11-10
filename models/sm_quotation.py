@@ -69,7 +69,7 @@ class SmQuotation(models.Model):
         store=True
     )
 
-    refuse_reasen = fields.Text(
+    refuse_reason = fields.Text(
         string='Motivo da Recusa',
         readonly=True
     )
@@ -90,7 +90,12 @@ class SmQuotation(models.Model):
             # Se o nome for 'Novo' ou estiver vazio, consome a sequência do sistema
             if vals.get('name', _('Novo')) == _('Novo'):
                 vals['name'] = self.env['ir.sequence'].next_by_code('sm.quotation') or _('Novo')
-        return super(SmQuotation, self).create(vals_list)
+        records = super(SmQuotation, self).create(vals_list)
+        # Atualiza a solicitação de serviço de origem para 'quoted' se estiver 'in_analysis'
+        requests_in_analysis = records.request_id.filtered(lambda r: r.state == 'in_analysis')
+        if requests_in_analysis:
+            requests_in_analysis.write({'state': 'quoted'})
+        return records
 
     # -------------------------------------------------------------------------
     # VALIDAÇÕES TÉCNICAS (CONSTRAINTS)
@@ -98,10 +103,15 @@ class SmQuotation(models.Model):
 
     @api.constrains('date_quotation')
     def _check_date_quotation(self):
-        """Impede a criação de orçamentos com dats passadas"""
+        """Impede a criação de orçamentos com datas anteriores à data de criação/registo."""
         for record in self:
-            if record.date_quotation and record.date_quotation < fields.Date.today():
-                raise ValidationError(_("A data so prçamento não pode ser anterior à data de hoje (%s)!") % fields.Date.today())
+            if record.date_quotation:
+                reference_date = record.create_date.date() if record.create_date else fields.Date.today()
+                if record.date_quotation < reference_date:
+                    raise ValidationError(
+                        _("A data do orçamento (%s) não pode ser anterior à data de registo (%s)!")
+                        % (record.date_quotation, reference_date)
+                    )
 
     # -------------------------------------------------------------------------
     # MÉTODOS DE AÇÃO (TRANSIÇÃO DE ESTADOS)

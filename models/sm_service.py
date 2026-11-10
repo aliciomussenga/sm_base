@@ -1,4 +1,6 @@
-from odoo import models, fields, api
+# -*- coding: utf-8 -*-
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class SmService(models.Model):
     _name = 'sm.service'
@@ -16,6 +18,7 @@ class SmService(models.Model):
         string='Código Interno',
         required=True,
         copy=False,
+        default='Novo',
         help='Identificador único do serviço (ex: SERV-001)'
     )
 
@@ -61,10 +64,21 @@ class SmService(models.Model):
         string='Descrição Detalhada'
     )
 
-        # --- Sequência Automática no Create ---
+    # --- Validações Técnicas ---
+    @api.constrains('price')
+    def _check_price(self):
+        """Valida que o preço do serviço é estritamente superior a zero quando informado."""
+        for rec in self:
+            if rec.price is not False and rec.price is not None and rec.price <= 0:
+                raise ValidationError(
+                    _("O preço base do serviço '%s' deve ser estritamente superior a zero!")
+                    % (rec.name or _('Novo Serviço'))
+                )
+
+    # --- Sequência Automática no Create ---
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get('code', 'Novo') == 'Novo':
+            if not vals.get('code') or vals.get('code') == 'Novo':
                 vals['code'] = self.env['ir.sequence'].next_by_code('sm.service') or 'Novo'
         return super().create(vals_list)

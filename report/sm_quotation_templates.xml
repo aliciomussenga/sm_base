@@ -93,7 +93,8 @@
                         <!-- 5. Rodapé Interno com Motivo de Recusa (se aplicável) -->
                         <div t-if="doc.state == 'refused'" class="alert alert-danger mt-4">
                             <strong>Motivo da Recusa:</strong>
-                            <p t-field="doc.refuse_reason"/>
+                            <p t-if="doc.refuse_reason" t-field="doc.refuse_reason"/>
+                            <p t-else="" class="text-muted mb-0">Nenhum motivo informado.</p>
                         </div>
 
                     </div>
