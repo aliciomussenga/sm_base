@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- 1. SEARCH VIEW - Filtro -->
+    <record id="view_sm_service_category_search" model="ir.ui.view">
+        <field name="name">sm.service.category.search</field>
+        <field name="model">sm.service.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Categoria" />
+                <field name="description" />
+                <filter string="Com Serviços" name="with_services"
+                    domain="[('service_count','>',0)]" />
+            </search>
+        </field>
+    </record>
+
+    <!-- 2. LIST VIEW - Tabela -->
+    <record id="view_sm_service_category_list" model="ir.ui.view">
+        <field name="name">sm.service.category.list</field>
+        <field name="model">sm.service.category</field>
+        <field name="arch" type="xml">
+            <list string="Categorias de Serviço">
+                <field name="name" />
+                <field name="description" optional="show" />
+            </list>
+        </field>
+    </record>
+
+    <!-- 3. FORM VIEW - Formulário com Smart Button -->
+    <record id="view_sm_service_category_form" model="ir.ui.view">
+        <field name="name">sm.service.category.form</field>
+        <field name="model">sm.service.category</field>
+        <field name="arch" type="xml">
+            <form string="Categoria de Serviço">
+                <header>
+                    <button name="open_service_ids" type="object"
+                        class="oe_stat_button" icon="fa-cogs">
+                        <field name="service_count" widget="statinfo" />
+                    </button>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" placeholder="Ex: Manutenção, Limpeza..." />
+                    </group>
+                    <group string="Descrição">
+                        <field name="description" nolabel="1"
+                            placeholder="Descreva esta categoria..." />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 4. ACTION - Ação para abrir o menu -->
+    <record id="action_sm_service_category" model="ir.actions.act_window">
+        <field name="name">Categorias de Serviço</field>
+        <field name="res_model">sm.service.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_with_services': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crie a primeira Categoria de Serviço!
+            </p>
+        </field>
+    </record>
+
+</odoo>
