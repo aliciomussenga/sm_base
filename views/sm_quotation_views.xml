@@ -16,6 +16,8 @@
                 <!-- 2. Filtros Rápidos (Botões de acionamento único) -->
                 <filter string="Rascunhos" name="filter_draft" domain="[('state', '=', 'draft')]"/>
                 <filter string="Aprovados" name="filter_approved" domain="[('state', '=', 'approved')]"/>
+                <filter string="Enviados" name="filter_sent" domain="[('state', '=', 'sent')]"/>
+
 
                 <separator/>
 
@@ -163,6 +165,8 @@
         <field name="name">Orçamentos de Serviços</field>
         <field name="res_model">sm.quotation</field>
         <field name="view_mode">list,kanban,form</field>
+        <field name="context">{'search_default_filter_sent': 1}</field>
+        <field name="search_view_id" ref="view_sm_quotation_search"/>
     </record>
 
 </odoo>

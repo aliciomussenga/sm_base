@@ -64,6 +64,10 @@ class SmServiceRequest(models.Model):
         """Muda o estado para Em Análise."""
         for rec in self:
             rec.state = 'in_analysis'
+            self.env['sm.quotation'].create({
+                'request_id': rec.id,
+                'partner_id': rec.partner_id.id,
+            })
 
     def action_cancel(self):
         """Cancela a solicitação de serviço."""

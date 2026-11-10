@@ -28,12 +28,15 @@ Este módulo fornece a estrutura base para a gestão de serviços:
         "views/sm_quotation_views.xml",
         "views/sm_work_order_views.xml",
         "views/sm_service_request_views.xml",
+        "views/sm_service_category_view.xml",
         "views/res_partner_views.xml",
+        "views/sm_tag_views.xml",
         "wizards/sm_quotation_refuse_wizard_views.xml",
 
         # 4. Relatórios QWeb
         "report/sm_quotation_reports.xml",
         "report/sm_quotation_templates.xml",
+        "report/sm_work_order_report.xml",
 
         "views/sm_menus.xml",
 ],

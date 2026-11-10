@@ -53,4 +53,10 @@
               action="action_sm_service_category"
               sequence="20"/>
 
+    <menuitem id="menu_sm_tag"
+              name="Etiqueta de Classificação"
+              parent="menu_sm_catalog"
+              action="action_sm_tag"
+              sequence="20"/>
+
 </odoo>

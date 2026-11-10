@@ -32,12 +32,4 @@
         </field>
     </record>
 
-
-    <!-- 3. Ação de Janela para Categorias -->
-    <record id="action_sm_service_category" model="ir.actions.act_window">
-        <field name="name">Categorias de Serviço</field>
-        <field name="res_model">sm.service.category</field>
-        <field name="view_mode">list,form</field>
-    </record>
-
 </odoo>

@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class SmService(models.Model):
     _name = 'sm.service'
@@ -60,3 +60,11 @@ class SmService(models.Model):
     description = fields.Text(
         string='Descrição Detalhada'
     )
+
+        # --- Sequência Automática no Create ---
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('code', 'Novo') == 'Novo':
+                vals['code'] = self.env['ir.sequence'].next_by_code('sm.service') or 'Novo'
+        return super().create(vals_list)
