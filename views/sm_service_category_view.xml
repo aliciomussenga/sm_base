@@ -27,7 +27,7 @@
         </field>
     </record>
 
-    <!-- 3. FORM VIEW - Formulário com Smart Button -->
+    
     <record id="view_sm_service_category_form" model="ir.ui.view">
         <field name="name">sm.service.category.form</field>
         <field name="model">sm.service.category</field>
