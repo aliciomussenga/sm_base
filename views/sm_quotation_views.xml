@@ -78,7 +78,7 @@
                     <button name="action_draft"
                             string="Restaurar p/ Rascunho"
                             type="object"
-                            invisible="state not in ('refused', 'approved')"/>
+                            invisible="state != 'refused'"/>
 
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved"/>
                 </header>
@@ -125,6 +125,7 @@
                         </page>
                     </notebook>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>

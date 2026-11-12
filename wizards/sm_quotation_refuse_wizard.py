@@ -22,8 +22,4 @@ class SmQuotationRefuseWizard(models.TransientModel):
         if not self.reason:
             raise UserError(_("É obrigatório indicar o motivo da recusa"))
 
-        # Atualiza o orçamento associado
-        self.quotation_id.write({
-            'state': 'refused',
-            'refuse_reason': self.reason,
-        })
+        self.quotation_id.action_confirm_refuse(self.reason)

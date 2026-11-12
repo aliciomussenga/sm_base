@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class SmServiceRequest(models.Model):
     _name = 'sm.service.request'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Solicitação de Serviço'
     _order = 'create_date desc'
 
@@ -21,6 +23,7 @@ class SmServiceRequest(models.Model):
         string='Cliente',
         required=True,
         ondelete='restrict',
+        tracking=True,
         help='Cliente que abriu a solicitação de serviço'
     )
 
@@ -39,7 +42,8 @@ class SmServiceRequest(models.Model):
         ],
         string='Estado',
         default='draft',
-        required=True
+        required=True,
+        tracking=True,
     )
 
     title = fields.Char(
@@ -62,8 +66,17 @@ class SmServiceRequest(models.Model):
 # --- Métodos de Alteração de Estado ---
     def action_in_analysis(self):
         """Muda o estado para Em Análise."""
-        for rec in self:
-            rec.state = 'in_analysis'
+        records = self.sorted('id')
+        if records:
+            self.env.cr.execute(
+                "SELECT id FROM sm_service_request WHERE id = ANY(%s) ORDER BY id FOR UPDATE",
+                [records.ids],
+            )
+            records.invalidate_recordset(['state'])
+        for rec in records:
+            if rec.state != 'draft':
+                raise UserError(_('Só é possível submeter solicitações em rascunho para análise.'))
+            rec.write({'state': 'in_analysis'})
             self.env['sm.quotation'].create({
                 'request_id': rec.id,
                 'partner_id': rec.partner_id.id,

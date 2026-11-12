@@ -16,6 +16,7 @@ Este módulo fornece a estrutura base para a gestão de serviços:
     'license': 'LGPL-3',
     'depends': [
         'base',
+        'mail',
     ],
     'data': [
         "security/sm_security.xml",
